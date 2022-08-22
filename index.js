@@ -7,7 +7,7 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
     //route handler, request and response objects, .get means wait for get request and path of '/'
 app.get('/', (req, res) => {
-        res.send(`
+    res.send(`
     <div>
         <form method="POST">
             <input name="email" placeholder="email" />
@@ -17,8 +17,7 @@ app.get('/', (req, res) => {
         </form>
     </div>
     `)
-    })
-    //middleware function= modifies request before sending it, next is callback func from express
+})
 
 //run bodyparser library middleware first, when next is called it returns here and info in req.body
 app.post('/', (req, res) => {
