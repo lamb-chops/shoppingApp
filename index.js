@@ -1,15 +1,20 @@
 const express = require('express')
     //module for middleware
 const bodyParser = require('body-parser')
+const cookieSession = require('cookie-session')
     //required for express, app is what manipulate
 const app = express()
 const usersRepo = require("./repositories/users")
     //all middleware functions use this bodyParser, auto doesnt apply to get request
 app.use(bodyParser.urlencoded({ extended: true }))
-    //route handler, request and response objects, .get means wait for get request and path of '/'
+    //npm package to create cookie, keys property used to encrypt cookie, adds property to req object (req.session)
+app.use(cookieSession({ keys: ['asdfjkl'] }))
+
+//route handler, request and response objects, .get means wait for get request and path of '/'
 app.get('/', (req, res) => {
     res.send(`
     <div>
+    Your ID is: ${req.session.userId}
         <form method="POST">
             <input name="email" placeholder="email" />
             <input name="password"placeholder="password" />
@@ -30,6 +35,9 @@ app.post('/', async(req, res) => {
     if (password !== passwordConfirmation) {
         return res.send("Passwords must match.")
     }
+
+    const user = await usersRepo.create({ email: email, password: password })
+    req.session.userId = user.id //added by cookie-session, attached auto to req
     res.send("Account created")
 })
 
