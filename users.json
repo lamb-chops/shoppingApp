@@ -1,15 +1,9 @@
-[
-  {
-    "email": "test@test.com"
-  },
-  {
-    "email": "asdfasdf",
-    "password": "password",
-    "id": "341c0a38"
-  },
-  {
-    "email": "test3@test.com",
-    "password": "abcd",
-    "id": "6c3180b8"
-  }
+[{
+        "email": "test@test.com"
+    },
+    {
+        "email": "asdfasdf",
+        "password": "password",
+        "id": "341c0a38"
+    }
 ]
