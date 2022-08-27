@@ -5,6 +5,7 @@ const cookieSession = require("cookie-session");
 //required for express, app is what manipulate
 const app = express();
 const usersRepo = require("./repositories/users");
+const users = require("./repositories/users");
 //all middleware functions use this bodyParser, auto doesnt apply to get request
 app.use(bodyParser.urlencoded({ extended: true }));
 //npm package to create cookie, keys property used to encrypt cookie, adds property to req object (req.session)
@@ -18,7 +19,7 @@ app.get('/signup', (req, res) => {
                 <input name="email" placeholder="email" />
                 <input name="password" placeholder="password" />
                 <input name="passwordConfirmation" placeholder="passwordConfirmation" />
-                <button>Sign In</button>
+                <button>Sign Up</button>
             </form>
         </div>
     `);
@@ -83,7 +84,9 @@ app.post('/signin', async(req, res) => {
     if (!user) {
         return res.send("Email not found.")
     }
-    if (user.password !== password) {
+    //comparePassword is bool return
+    const validPassword = await usersRepo.comparePasswords(user.password, password)
+    if (!validPassword) {
         return res.send("Invalid Password")
     }
     req.session.userId = user.id
