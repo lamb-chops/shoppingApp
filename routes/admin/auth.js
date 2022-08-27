@@ -3,7 +3,7 @@ const usersRepo = require('../../repositories/users') //relative path for files 
 const signupTemplate = require('../../views/admin/auth/signup')
 const signinTemplate = require('../../views/admin/auth/signin')
 const { requireEmail, requirePassword, requirePasswordConfirmation, requireEmailExist, requireValidPasswordForUser } = require("./validators")
-const { check, validationResult } = require('express-validator') //only care about check, destructure
+const { check, validationResult } = require('express-validator') //need for errors in custom validation 
     //works just like app obj in index.js, will link router to app in index
 const router = express.Router()
 
