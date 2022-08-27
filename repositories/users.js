@@ -1,7 +1,6 @@
 const fs = require("fs");
 const crypto = require("crypto");
 const util = require("util");
-const { addAbortSignal } = require("stream");
 
 const scrypt = util.promisify(crypto.scrypt)
 
