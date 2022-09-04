@@ -1,4 +1,6 @@
 const express = require("express");
+
+const { handleErrors } = require("./middlewares");
 const usersRepo = require("../../repositories/users"); //relative path for files we make
 const signupTemplate = require("../../views/admin/auth/signup");
 const signinTemplate = require("../../views/admin/auth/signin");
@@ -23,17 +25,12 @@ router.get("/signup", (req, res) => {
 router.post(
   "/signup",
   [requireEmail, requirePassword, requirePasswordConfirmation],
+  handleErrors(signupTemplate),
   async (req, res) => {
-    //results from checks in req obj, this line gives us access to logic. returns array of obj with one for each check
-    const errors = validationResult(req);
-    //true if nothing is wrong
-    if (!errors.isEmpty()) {
-      return res.send(signupTemplate({ req, errors }));
-    }
-    const { email, password, passwordConfirmation } = req.body;
+    const { email, password } = req.body;
     const user = await usersRepo.create({ email: email, password: password });
     req.session.userId = user.id; //added by cookie-session, attached auto to req, .session empty obj at first
-    res.send("Account created");
+    res.redirect("admin/products");
   }
 );
 
@@ -50,12 +47,9 @@ router.get("/signin", (req, res) => {
 router.post(
   "/signin",
   [requireEmailExist, requireValidPasswordForUser],
+  handleErrors(signinTemplate),
   async (req, res) => {
     const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.send(signinTemplate({ errors }));
-    }
 
     //email and password from names put on form
     const { email } = req.body;
@@ -63,7 +57,7 @@ router.post(
     const user = await usersRepo.getOneBy({ email: email });
 
     req.session.userId = user.id;
-    res.send("You are signed in");
+    res.redirect("admin/products");
   }
 );
 
