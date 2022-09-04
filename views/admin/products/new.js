@@ -1,10 +1,10 @@
-const layout = require('../layout')
-const { getError } = require('../../helpers')
+const layout = require("../layout");
+const { getError } = require("../../helpers");
 
 module.exports = ({ errors }) => {
-    //enctype is content type, default is turn everything to strings for query params
-    return layout({
-        content: `
+  //enctype is content type, default is turn everything to strings for query params
+  return layout({
+    content: `
           <div class="columns is-centered">
             <div class="column is-half">
               <h1 class="subtitle">Create a Product</h1>
@@ -13,13 +13,13 @@ module.exports = ({ errors }) => {
                 <div class="field">
                   <label class="label">Title</label>
                   <input class="input" placeholder="Title" name="title">
-                  <p class="help is-danger">${getError(errors, 'title')}</p>
+                  <p class="help is-danger">${getError(errors, "title")}</p>
                 </div>
                 
                 <div class="field">
                   <label class="label">Price</label>
                   <input class="input" placeholder="Price" name="price">
-                  <p class="help is-danger">${getError(errors, 'price')}</p>
+                  <p class="help is-danger">${getError(errors, "price")}</p>
                 </div>
                 
                 <div class="field">
@@ -31,6 +31,6 @@ module.exports = ({ errors }) => {
               </form>
             </div>
           </div>
-        `
-    });
+        `,
+  });
 };

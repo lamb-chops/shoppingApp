@@ -1,5 +1,6 @@
-module.exports = ({ content }) => { //content is string to put in html body
-    return `
+module.exports = ({ content }) => {
+  //content is string to put in html body
+  return `
     <!DOCTYPE html>
       <html lang="en">
       <head>
