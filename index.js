@@ -5,6 +5,7 @@ const cookieSession = require("cookie-session");
 const authRouter = require("./routes/admin/auth");
 const adminProductsRouter = require("./routes/admin/products");
 const productsRouters = require("./routes/products");
+const cartsRouter = require("./routes/carts");
 //required for express, app is what manipulate
 const app = express();
 //makes public folder available to outside world (aka css for browser), checks if request has path to css
@@ -17,6 +18,7 @@ app.use(cookieSession({ keys: ["asdfjkl"] }));
 app.use(authRouter); //how to link up routes for different files
 app.use(adminProductsRouter);
 app.use(productsRouters);
+app.use(cartsRouter);
 
 //listen on port 3000 for request then run callback
 app.listen(3000, () => {
