@@ -3,7 +3,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
 const authRouter = require("./routes/admin/auth");
-const productsRouter = require("./routes/admin/products");
+const adminProductsRouter = require("./routes/admin/products");
+const productsRouters = require("./routes/products");
 //required for express, app is what manipulate
 const app = express();
 //makes public folder available to outside world (aka css for browser), checks if request has path to css
@@ -14,7 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //npm package to create cookie, keys property used to encrypt cookie, adds property to req object (req.session)
 app.use(cookieSession({ keys: ["asdfjkl"] }));
 app.use(authRouter); //how to link up routes for different files
-app.use(productsRouter);
+app.use(adminProductsRouter);
+app.use(productsRouters);
 
 //listen on port 3000 for request then run callback
 app.listen(3000, () => {
